@@ -200,8 +200,8 @@ $db->connect();
                 $tempRow['id'] = $row['id'];
                 $tempRow['products'] = $row['products'];
                 $tempRow['price'] = $row['price'];
-                $tempRow['daily_income'] = $row['daily_income'];
-                $tempRow['daily_quantity'] = $row['daily_quantity'];
+                $tempRow['from_daily_income'] = $row['from_daily_income'];
+                $tempRow['to_daily_income'] = $row['to_daily_income'];
                 $tempRow['monthly_income'] = $row['monthly_income'];
                 $tempRow['invite_bonus'] = $row['invite_bonus'];
                 $tempRow['unit'] = $row['unit'];
@@ -428,7 +428,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'user_plan') {
             $total = $row['total'];
         }
         
-        $sql = "SELECT l.id AS id, l.*, u.name AS user_name, u.mobile AS user_mobile, p.products AS plan_products, p.price AS plan_price, p.daily_quantity AS plan_daily_quantity, p.unit AS plan_unit, p.daily_income AS plan_daily_income, p.monthly_income AS plan_monthly_income, p.invite_bonus AS plan_invite_bonus FROM `user_plan` l " . $join . " ORDER BY $sort $order LIMIT $offset, $limit";
+        $sql = "SELECT l.id AS id, l.*, u.name AS user_name, u.mobile AS user_mobile, p.products AS plan_products, p.price AS plan_price, p.to_daily_income AS plan_to_daily_income, p.unit AS plan_unit, p.from_daily_income AS plan_from_daily_income, p.monthly_income AS plan_monthly_income, p.invite_bonus AS plan_invite_bonus FROM `user_plan` l " . $join . " ORDER BY $sort $order LIMIT $offset, $limit";
         $db->sql($sql);
         $res = $db->getResult();
         
@@ -448,9 +448,9 @@ if (isset($_GET['table']) && $_GET['table'] == 'user_plan') {
         $tempRow['user_mobile'] = $row['user_mobile'];
         $tempRow['plan_products'] = $row['plan_products'];
         $tempRow['plan_price'] = $row['plan_price'];
-        $tempRow['plan_daily_quantity'] = $row['plan_daily_quantity'];
         $tempRow['plan_unit'] = $row['plan_unit'];
-        $tempRow['plan_daily_income'] = $row['plan_daily_income'];
+        $tempRow['from_daily_income'] = $row['plan_from_daily_income'];
+        $tempRow['plan_to_daily_income'] = $row['plan_to_daily_income'];
         $tempRow['plan_monthly_income'] = $row['plan_monthly_income'];
         $tempRow['plan_invite_bonus'] = $row['plan_invite_bonus'];
         $tempRow['income'] = $row['income'];
@@ -1122,6 +1122,70 @@ if (isset($_GET['table']) && $_GET['table'] == 'scratch_cards') {
         $tempRow['status'] ="<p class='text text-success'>Claimed</p>";
         elseif($row['status']==0)
         $tempRow['status']="<p class='text text-primary'>Not-Claimed</p>";
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
+
+//slots
+if (isset($_GET['table']) && $_GET['table'] == 'slots') {
+    $offset = 0;
+    $limit = 10;
+    $where = '';
+    $sort = 'date';
+    $order = 'DESC';
+
+    
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($fn->xss_clean($_GET['limit']));
+
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($fn->xss_clean($_GET['sort']));
+    if (isset($_GET['order']))
+        $order = $db->escapeString($fn->xss_clean($_GET['order']));
+
+
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $search = $db->escapeString($fn->xss_clean($_GET['search']));
+            $where .= "AND (p.products LIKE '%" . $search . "%') ";
+        }
+        
+    if (isset($_GET['sort'])) {
+        $sort = $db->escapeString($_GET['sort']);
+    }
+    if (isset($_GET['order'])) {
+        $order = $db->escapeString($_GET['order']);
+    }
+   
+    $join = "LEFT JOIN `plan` p ON l.plan_id = p.id WHERE l.id IS NOT NULL " . $where;
+
+    $sql = "SELECT COUNT(l.id) AS total FROM `slots` l " . $join;
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+   
+     $sql = "SELECT l.id AS id,l.*,p.products  FROM `slots` l " . $join . " ORDER BY $sort $order LIMIT $offset, $limit";
+     $db->sql($sql);
+     $res = $db->getResult();
+
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    $rows = array();
+    $tempRow = array();
+    foreach ($res as $row) {
+        $tempRow = array();
+        
+        $operate = '<a href="edit-slots.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $operate .= ' <a class="text text-danger" href="delete-slots.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
+        $tempRow['id'] = $row['id'];
+        $tempRow['products'] = $row['products'];
+        $tempRow['total_income'] = $row['total_income'];
+        $tempRow['total_ratings'] = $row['total_ratings'];
+        $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }
     $bulkData['rows'] = $rows;

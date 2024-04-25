@@ -17,15 +17,15 @@ if (isset($_POST['btnEdit'])) {
 
     $products = $db->escapeString(($_POST['products']));
     $price = $db->escapeString(($_POST['price']));
-    $daily_quantity = $db->escapeString(($_POST['daily_quantity']));
+	$to_daily_income = $db->escapeString(($_POST['to_daily_income']));
     $unit = $db->escapeString(($_POST['unit']));
-    $daily_income = $db->escapeString(($_POST['daily_income']));
+	$from_daily_income = $db->escapeString(($_POST['from_daily_income']));
     $monthly_income = $db->escapeString(($_POST['monthly_income']));
 	$invite_bonus = $db->escapeString(($_POST['invite_bonus']));
 	$num_times = $db->escapeString(($_POST['num_times']));
 	$stock = $db->escapeString(($_POST['stock']));
 	
-		$sql_query = "UPDATE plan SET products='$products',price='$price',daily_quantity='$daily_quantity',daily_income='$daily_income',monthly_income='$monthly_income',invite_bonus='$invite_bonus',unit='$unit',num_times = '$num_times',stock = '$stock' WHERE id =  $ID";
+		$sql_query = "UPDATE plan SET products='$products',price='$price',to_daily_income='$to_daily_income',from_daily_income='$from_daily_income',monthly_income='$monthly_income',invite_bonus='$invite_bonus',unit='$unit',num_times = '$num_times',stock = '$stock' WHERE id =  $ID";
 		$db->sql($sql_query);
 		$result = $db->getResult();             
 		if (!empty($result)) {
@@ -126,11 +126,15 @@ if (isset($_POST['btnCancel'])) { ?>
                          <br>
                          <div class="row">
 					  	  <div class="form-group">
-                               <div class="col-md-6">
-									<label for="exampleInputEmail1">Daily Income</label><i class="text-danger asterik">*</i>
-									<input type="number" class="form-control" name="daily_income" value="<?php echo $res[0]['daily_income']; ?>">
+                               <div class="col-md-4">
+									<label for="exampleInputEmail1">From Daily Income</label><i class="text-danger asterik">*</i>
+									<input type="number" class="form-control" name="from_daily_income" value="<?php echo $res[0]['from_daily_income']; ?>">
 								</div>
-                                <div class="col-md-6">
+								<div class="col-md-4">
+									<label for="exampleInputEmail1">To Daily Income</label><i class="text-danger asterik">*</i>
+									<input type="number" class="form-control" name="to_daily_income" value="<?php echo $res[0]['to_daily_income']; ?>">
+								</div>
+                                <div class="col-md-4">
 									<label for="exampleInputEmail1">Monthly Income</label><i class="text-danger asterik">*</i>
 									<input type="number" class="form-control" name="monthly_income" value="<?php echo $res[0]['monthly_income']; ?>">
 								</div>
@@ -143,36 +147,28 @@ if (isset($_POST['btnCancel'])) { ?>
 									<label for="exampleInputEmail1">Invite Bonus</label><i class="text-danger asterik">*</i>
 									<input type="number" class="form-control" name="invite_bonus" value="<?php echo $res[0]['invite_bonus']; ?>">
 								</div>
-                                <div class="col-md-6">
-									<label for="exampleInputEmail1">Daily Quantity</label><i class="text-danger asterik">*</i>
-									<input type="number" class="form-control" name="daily_quantity" value="<?php echo $res[0]['daily_quantity']; ?>">
+								<div class="col-md-6">
+									<label for="exampleInputEmail1">Unit</label><i class="text-danger asterik">*</i>
+									<input type="text" class="form-control" name="unit" value="<?php echo $res[0]['unit']; ?>">
 								</div>
                             </div>
                          </div>
 						 <br>
 						 <div class="row">
                             <div class="form-group">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="exampleInputFile">Image</label> <i class="text-danger asterik">*</i><?php echo isset($error['image']) ? $error['image'] : ''; ?>
                                     <input type="file" name="image" onchange="readURL(this);" accept="image/png, image/jpeg" id="image" /><br>
                                     <img id="blah" src="<?php echo $res[0]['image']; ?>" alt="" width="150" height="200" <?php echo empty($res[0]['image']) ? 'style="display: none;"' : ''; ?> />
                                 </div>
-                            </div>
-							   <div class="col-md-6">
-									<label for="exampleInputEmail1">Unit</label><i class="text-danger asterik">*</i>
-									<input type="text" class="form-control" name="unit" value="<?php echo $res[0]['unit']; ?>">
-								</div>
-						  </div>  
-						  <br>
-						  <div class="row">
-                            <div class="form-group">
-							<div class='col-md-3'>
-                              <label for="">Stock</label><br>
+								<div class='col-md-3'>
+                                <label for="">Stock</label><br>
                                     <input type="checkbox" id="stock_button" class="js-switch" <?= isset($res[0]['stock']) && $res[0]['stock'] == 1 ? 'checked' : '' ?>>
                                     <input type="hidden" id="stock" name="stock" value="<?= isset($res[0]['stock']) && $res[0]['stock'] == 1 ? 1 : 0 ?>">
                                 </div>
                             </div>
-						  </div> 
+						  </div>  
+						  <br>
                      </div>
 					<div class="box-footer">
 						<button type="submit" class="btn btn-primary" name="btnEdit">Update</button>

@@ -35,6 +35,12 @@ if (empty($_POST['markets_id'])) {
     echo json_encode($response);
     return;
 }
+if (empty($_POST['slot_id'])) {
+    $response['success'] = false;
+    $response['message'] = "Slot Id is Empty";
+    echo json_encode($response);
+    return;
+}
 
 
 $user_id = $db->escapeString($_POST['user_id']);
@@ -63,6 +69,16 @@ $markets = $db->getResult();
 if (empty($markets)) {
     $response['success'] = false;
     $response['message'] = "Markets not found";
+    print_r(json_encode($response));
+    return false;
+}
+$sql = "SELECT * FROM slots WHERE id = $slot_id ";
+$db->sql($sql);
+$slots = $db->getResult();
+
+if (empty($slots)) {
+    $response['success'] = false;
+    $response['message'] = "Slots not found";
     print_r(json_encode($response));
     return false;
 }
@@ -129,11 +145,6 @@ if (empty($markets)) {
     echo json_encode($response);
     return;
 }
-$daily_income = $markets[0]['price'];
-// if($income > 300 && $markets_id == 2){
-//     $daily_income = '8';
-
-// }
 
 $min_valid_team = $markets[0]['min_valid_team'];
 
@@ -144,6 +155,17 @@ if($min_valid_team > $valid_team){
     return;
 
 }
+$sql = "SELECT total_income FROM slots WHERE id = $slot_id";
+$db->sql($sql);
+$markets = $db->getResult();
+
+if (empty($slots)) {
+    $response['success'] = false;
+    $response['message'] = "slots not found";
+    echo json_encode($response);
+    return;
+}
+$daily_income = $slots[0]['total_income'];
 
 $sql = "UPDATE user_plan SET claim = 0,income = income + $daily_income WHERE id = $user_plan_id";
 $db->sql($sql);

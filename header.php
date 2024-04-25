@@ -275,6 +275,12 @@ if ($_SESSION['role'] == 'admin') {
                         <span>Scratch Cards</span>
                     </a>
                 </li>
+                <li class="treeview">
+                    <a href="slots.php">
+                    <i class="fas fa-clipboard"></i>
+                        <span>Slots</span>
+                    </a>
+                </li>
                 <?php } ?>
             </section>
             <!-- /.sidebar -->

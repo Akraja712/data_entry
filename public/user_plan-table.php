@@ -47,9 +47,9 @@
                                     <th data-field="plan_products" data-sortable="true">Products</th>
                                     <th data-field="plan_price" data-sortable="true">Price</th>
                                     <th data-field="total_recharge" data-sortable="true">Total Recharge</th>
-                                    <th data-field="plan_daily_income" data-sortable="true">Daily Income</th>
+                                    <th data-field="plan_from_daily_income" data-sortable="true">From Daily Income</th>
+                                    <th data-field="plan_to_daily_income" data-sortable="true">To Daily Income</th>
                                     <th data-field="plan_monthly_income" data-sortable="true">Monthly Income</th>
-                                    <th data-field="plan_daily_quantity" data-sortable="true">Daily Quantity</th>
                                     <th data-field="plan_unit" data-sortable="true">Unit</th>
                                     <th data-field="plan_invite_bonus" data-sortable="true">Invite Bonus</th>
                                     <th data-field="income" data-sortable="true">Income</th>
