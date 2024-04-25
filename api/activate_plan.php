@@ -88,7 +88,7 @@ $products = $plan[0]['products'];
 
 $invite_bonus = $plan[0]['invite_bonus'];
 $price = $plan[0]['price'];
-$daily_income = $plan[0]['daily_income'];
+//$daily_income = $plan[0]['daily_income'];
 $stock = $plan[0]['stock'];
 //$total_income = $plan[0]['total_income'];
 //$validity = $plan[0]['validity'];
