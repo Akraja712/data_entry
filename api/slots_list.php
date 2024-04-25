@@ -12,7 +12,15 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-$sql = "SELECT * FROM slots";
+if (empty($_POST['plan_id'])) {
+    $response['success'] = false;
+    $response['message'] = "Plan Id is Empty";
+    print_r(json_encode($response));
+    return false;
+}
+$plan_id = $db->escapeString($_POST['plan_id']);
+
+$sql = "SELECT * FROM slots WHERE plan_id = $plan_id"; 
 $db->sql($sql);
 $res= $db->getResult();
 $num = $db->numRows($res);
