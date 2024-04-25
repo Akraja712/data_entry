@@ -449,7 +449,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'user_plan') {
         $tempRow['plan_products'] = $row['plan_products'];
         $tempRow['plan_price'] = $row['plan_price'];
         $tempRow['plan_unit'] = $row['plan_unit'];
-        $tempRow['from_daily_income'] = $row['plan_from_daily_income'];
+        $tempRow['plan_from_daily_income'] = $row['plan_from_daily_income'];
         $tempRow['plan_to_daily_income'] = $row['plan_to_daily_income'];
         $tempRow['plan_monthly_income'] = $row['plan_monthly_income'];
         $tempRow['plan_invite_bonus'] = $row['plan_invite_bonus'];

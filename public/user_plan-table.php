@@ -46,7 +46,7 @@
                                     <th data-field="user_mobile" data-sortable="true">User Mobile</th>
                                     <th data-field="plan_products" data-sortable="true">Products</th>
                                     <th data-field="plan_price" data-sortable="true">Price</th>
-                                    <th data-field="total_recharge" data-sortable="true">Total Recharge</th>
+                                   
                                     <th data-field="plan_from_daily_income" data-sortable="true">From Daily Income</th>
                                     <th data-field="plan_to_daily_income" data-sortable="true">To Daily Income</th>
                                     <th data-field="plan_monthly_income" data-sortable="true">Monthly Income</th>
