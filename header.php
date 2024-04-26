@@ -245,24 +245,24 @@ if ($_SESSION['role'] == 'admin') {
                         <span>Payment Setting</span>
                     </a>
                 </li>
-                <li class="treeview">
+                <!--<li class="treeview">
                     <a href="otp.php">
                         <i class="fa fa-lock"></i>
                         <span>OTP</span>
                     </a>
-                </li>
+                </li>-->
                 <li class="treeview">
                     <a href="hour-withdrawal-reports.php">
                         <i class="fa fa-clock"></i>
                         <span>Hour Withdrawal Reports</span>
                     </a>
                 </li>
-                <li class="treeview">
+               <!-- <li class="treeview">
                     <a href="markets.php">
                     <i class="fas fa-shopping-bag"></i>
                         <span>Markets</span>
                     </a>
-                </li>
+                </li>-->
                 <li class="treeview">
                     <a href="recharge_trans.php">
                     <i class="fas fa-money"></i>
