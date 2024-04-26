@@ -193,6 +193,7 @@ if ($recharge >= $price) {
         }
 
     }
+  
 
     if ($scratch_card == 1 && $plan_id != 1 ) {
 

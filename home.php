@@ -31,7 +31,7 @@ include "header.php";
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Data Entry- Dashboard</title>
+    <title>Ratings Job- Dashboard</title>
 </head>
 
 <body>
